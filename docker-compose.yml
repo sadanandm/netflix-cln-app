@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=q0u330273no66cqy
+      - MYSQL_DATABASE=g79vqrf8t3f9abh2
+    ports:
+      - $MYSQLDB_LOCAL_PORT:3306
+    volumes:
+      - db:/var/lib/mysql
+  app:
+    depends_on:
+      - mysqldb
+    build: ./
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - $NODE_LOCAL_PORT:3306
+    environment:
+      - DB_HOST=nnsgluut5mye50or.cbetxkdyhwsb.us-east-1.rds.amazonaws.com
+      - DB_USER=o262di8643a1um5g
+      - DB_PASSWORD=q0u330273no66cqy
+      - DB_NAME=g79vqrf8t3f9abh2
+      - DB_PORT=3306
+    stdin_open: true
+    tty: true
+
+volumes: 
+  db:
